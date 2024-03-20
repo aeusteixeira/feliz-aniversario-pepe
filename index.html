@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Pepe! 🎉</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes jump {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        .emoji {
+            animation: jump 1s infinite;
+            display: inline-block;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                opacity: 1;
+            }
+
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        .confete {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear infinite;
+        }
+
+        body {
+            background-image: url('taylor1.webp');
+            background-size: cover;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            50% {
+                transform: translateX(10px);
+            }
+
+            75% {
+                transform: translateX(-10px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+    </style>
+</head>
+
+<body class="bg-pink-100 flex justify-center items-center min-h-screen">
+
+    <div class="text-center p-4">
+        <p class="text-2xl md:text-4xl font-bold text-white bg-purple-700 mb-4">Feliz Aniversário, 🎉 Pepe! 🎉</p>
+        <div class="text-center">
+            <img class="mb-4" src="matheus-e-pepe.jpg" alt="Pepe e Matheus" width="300" height="300">
+        </div>
+        <p class="text-md italic text-white">"I don't know about you, but I'm feeling 22!" - Taylor Swift</p>
+        <div class="text-3xl">
+            <span class="emoji" style="animation-delay: 0s;">🎂</span>
+            <span class="emoji" style="animation-delay: .4s;">🥳</span>
+            <span class="emoji" style="animation-delay: .8s;">🎈</span>
+        </div>
+        <button onclick="tocarSomFogosDeArtificio()"
+            class="mt-4 bg-purple-700 text-white font-bold py-2 px-4 rounded-full hover:bg-purple-800 focus:outline-none focus:shadow-outline">
+            Shake it off! 🎶
+        </button>
+    </div>
+
+    <audio id="fireworksSound" src="taylor.mp3" type="audio/mp3"></audio>
+
+    <script>
+        function gerarConfetes() {
+            const colors = ['#ff5f40', '#ffcd56', '#4bcffa', '#34eb93', '#9b59b6'];
+            for (let i = 0; i < 100; i++) {
+                let confete = document.createElement('div');
+                confete.classList.add('confete');
+                confete.style.left = `${Math.random() * 100}%`;
+                confete.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confete.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confete.style.animationDelay = `-${Math.random() * 2}s`;
+                confete.style.width = `${Math.random() * 8 + 2}px`;
+                confete.style.height = confete.style.width;
+                confete.style.top = `${Math.random() * 100}%`;
+                document.body.appendChild(confete);
+            }
+        }
+
+        function tocarSomFogosDeArtificio() {
+            const som = document.getElementById('fireworksSound');
+            som.play().catch(e => console.error("Erro ao reproduzir o som: ", e));
+
+            document.body.classList.add('shake');
+            setTimeout(() => {
+                document.body.classList.remove('shake');
+            }, 500); // Duração da animação de shake
+        }
+
+
+        window.addEventListener('load', gerarConfetes);
+    </script>
+</body>
+
+</html>
